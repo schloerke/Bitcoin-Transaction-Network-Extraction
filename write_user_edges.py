@@ -7,7 +7,7 @@
 #   @return None
 #
 #   This method outputs the files for referent transaction information and main data edges.
-# 
+#
 #
 
 
@@ -18,7 +18,7 @@ def write_user_edges(referents_out, public_keys_out, edges_out, rows, user_hash)
     pk_out = open(public_keys_out, 'w')
     e_out = open(edges_out, 'w')
     rows.sort(key=itemgetter(1,0,2))
-    
+
     pubkey = None
     prev = None
     rf_list = []
@@ -45,11 +45,11 @@ def write_user_edges(referents_out, public_keys_out, edges_out, rows, user_hash)
             rf_list = []
             pk_list = []
         prev = row[1]
-        i += 1 
+        i += 1
         if i % 1000000 == 0: #monitor progress
-            print "Progress: write user edges, percent complete: " + str(float(i)/len(rows)) 
-              
-        
+            print "Progress: write user edges, percent complete: " + str(float(i)/len(rows))
+
+
     e_out.close()
     pk_out.close()
     rf_out.close()
