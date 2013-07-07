@@ -28,8 +28,10 @@ def write_user_edges(referents_out, public_keys_out, edges_out, rows, user_hash)
     for row in rows:
         if row[0] == 0: #if input
             rf_list.append(row[5])
+
             pk_list.append(row[3])
-        
+            pk_list.append(row[2]) # adds the prev transaction position
+
         if row[0] == 0 or prev != row[1]: #if output or mismatch (output can have no input in the case of 'coinbase' mining event, write this as user as input and output, self-loop transaction)
             pubkey = row[3]
 
