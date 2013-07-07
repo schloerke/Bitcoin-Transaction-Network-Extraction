@@ -58,7 +58,6 @@ def write_network_dictionaries(db_path, transactions_in, transaction_keys, pub_k
             date = fields[5]
             tk_backup = fields[1]
             io_val = float(fields[4])*1e9
-            tk_backup = fields[1]        
         else:
             add = 0
 
