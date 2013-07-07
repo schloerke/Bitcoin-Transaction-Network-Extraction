@@ -50,6 +50,7 @@ def write_network_dictionaries(db_path, transactions_in, transaction_keys, pub_k
             date = fields[5]
             io_val = fields[2]
             tk_backup = fields[1]
+            block_height = fields[6]
         elif fields[0] == "out":
             io = 1
             tk = fields[1]
@@ -58,6 +59,7 @@ def write_network_dictionaries(db_path, transactions_in, transaction_keys, pub_k
             date = fields[5]
             tk_backup = fields[1]
             io_val = float(fields[4])*1e9
+            block_height = fields[6]
         else:
             add = 0
 
@@ -79,8 +81,8 @@ def write_network_dictionaries(db_path, transactions_in, transaction_keys, pub_k
                 pk_out.write("%s\n" % pk)
 
             if io == 0:
-                 io_val = int(t_keys[io_val])       
-            rows.append(ar.array('L', map(int, [io, t_keys[tk], idx, p_keys[pk], date, io_val, t_keys[tk_backup]]))) #go to 'L' here to preserve BTC value precision, is corrupted on 4-byte float.
+                 io_val = int(t_keys[io_val])
+            rows.append(ar.array('L', map(int, [io, t_keys[tk], idx, p_keys[pk], date, io_val, t_keys[tk_backup], block_height]))) #go to 'L' here to preserve BTC value precision, is corrupted on 4-byte float.
         i += 1
         if i % 1000000 == 0: #print progress
             print "Progress: dictionary, percent complete: " + str(float(i)/file_lines)
