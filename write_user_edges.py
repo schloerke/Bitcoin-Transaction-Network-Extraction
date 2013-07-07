@@ -16,7 +16,8 @@ import bsddb
 def write_user_edges(referents_out, public_keys_out, edges_out, rows, user_hash):
     rf_out = open(referents_out, 'w')
     pk_out = open(public_keys_out, 'w')
-    e_out = open(edges_out, 'w')
+    e_out  = open(edges_out, 'w')
+
     rows.sort(key=itemgetter(1,0,2))
 
     pubkey = None

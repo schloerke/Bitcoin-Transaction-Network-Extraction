@@ -43,22 +43,22 @@ def write_network_dictionaries(db_path, transactions_in, transaction_keys, pub_k
         fields = row.split()
         #field specification: ["in", transaction_key, referent_transaction_key, index, public_key, date]
         if fields[0] == "in" and fields[2] != "coinbase":
-            io = 0  #save some space here, should be sorted before 'out'
-            tk = fields[2] #actually rfk here for fixing missing pubkeys trick
-            idx  = int(fields[3])
-            pk = fields[4]
-            date = fields[5]
-            io_val = fields[2]
-            tk_backup = fields[1]
+            io           = 0  #save some space here, should be sorted before 'out'
+            tk           = fields[2] #actually rfk here for fixing missing pubkeys trick
+            idx          = int(fields[3])
+            pk           = fields[4]
+            date         = fields[5]
+            io_val       = fields[2]
+            tk_backup    = fields[1]
             block_height = fields[6]
         elif fields[0] == "out":
-            io = 1
-            tk = fields[1]
-            idx  = int(fields[2])
-            pk = fields[3]
-            date = fields[5]
-            tk_backup = fields[1]
-            io_val = float(fields[4])*1e9
+            io           = 1
+            tk           = fields[1]
+            idx          = int(fields[2])
+            pk           = fields[3]
+            date         = fields[5]
+            tk_backup    = fields[1]
+            io_val       = float(fields[4])*1e9
             block_height = fields[6]
         else:
             add = 0
@@ -86,6 +86,7 @@ def write_network_dictionaries(db_path, transactions_in, transaction_keys, pub_k
         i += 1
         if i % 1000000 == 0: #print progress
             print "Progress: dictionary, percent complete: " + str(float(i)/file_lines)
+
     p_keys.close()
     t_keys.close()
     f.close()
