@@ -1,11 +1,11 @@
 # Bitcoin Transaction Network Extraction
 
-This project is to be used solely with (schloerke's bitcointools)[http://github.com/schloerke/bitcointools].
+This project is to be used solely with [schloerke's bitcointools](http://github.com/schloerke/bitcointools).
 
 
 # Install
 
-Please see the intructions on (schloerke's bitcointools)[http://github.com/schloerke/bitcointools] repo to download the data.
+Please see the intructions on [schloerke's bitcointools](http://github.com/schloerke/bitcointools) repo to download the data.
 
 Once your data has been downloaded, alter the file locations within ```process_bitcoin_network_runner.sh``` to point to their proper directories.  Then execute the runner
 
