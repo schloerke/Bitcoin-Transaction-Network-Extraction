@@ -1,6 +1,8 @@
 # Bitcoin Transaction Network Extraction
 
-This project is to be used solely with [schloerke's bitcointools](http://github.com/schloerke/bitcointools).
+This fork is an extension of [Ivan Brugere's work](https://github.com/ivan-brugere/Bitcoin-Transaction-Network-Extraction).
+
+Given the amount of changes made to the code, this fork is to be used solely with [schloerke's bitcointools](http://github.com/schloerke/bitcointools).
 
 
 # Install
