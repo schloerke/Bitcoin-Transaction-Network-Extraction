@@ -53,8 +53,6 @@ Once ```bitcoind``` has finished processing the ```bootstrap.dat``` file and cau
 bitcoind -datadir="./bitcoin_data"
 ```
 
-```bitcoind``` should be running while extrating transactions with node.js.
-
 # Extraction
 
 Run ```bitcoind``` as explained above in the background or another tab.  This process is needed to extract all of the transactions.
