@@ -37,8 +37,8 @@ When the 15+ GB ```.dat``` file has finished downloading, import it into ```bitc
 
 ```
 mkdir bitcoin_data
-echo -e "server=1\nrpcuser=bitcoinrpc\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > bitcoin_data/bitcoin.conf
-bitcoind -detachdb -datadir="./bitcoin_data" -txindex=1 -loadblock="./bootstrap.dat"
+echo -e "server=1\nrpcthreads=32\nrpctimeout=120\ntxindex=1\nrpcuser=bitcoinrpc\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > bitcoin_data/bitcoin.conf
+bitcoind -datadir="./bitcoin_data" -loadblock="./bootstrap.dat"
 ```
 
 To follow the progress of ```bitcoind``` use
@@ -50,7 +50,7 @@ tail -f bitcoin_data/debug.log
 Once ```bitcoind``` has finished processing the ```bootstrap.dat``` file and caught up to the current block, ```bitcoind``` may be shut down (might take up to 30 seconds) and restarted without the ```-loadblock``` arguement.
 
 ```
-bitcoind -detachdb -datadir="./bitcoin_data" -txindex=1
+bitcoind -datadir="./bitcoin_data"
 ```
 
 ```bitcoind``` should be running while extrating transactions with node.js.
