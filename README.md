@@ -4,15 +4,23 @@ The goal of this repository is to extract bitcoint transaction information from 
 
 # Requirements
 
-* ```bitcoind``` v0.9.* or higher. ([download binary](https://bitcoin.org/en/download) or [Github](https://github.com/bitcoin/bitcoin/tree/master/doc))
+* bitcoind v0.9.* or higher. ([download binary](https://bitcoin.org/en/download) or [Github](https://github.com/bitcoin/bitcoin/tree/master/doc))
 * node.js v0.10.*.  ([download](http://nodejs.org/download/))
+* python v2.7.*
+* python library bsddb3
 
 For mac, you may use ```brew```
 
 ```
+# install bitcoind
 brew tap wysenynja/bitcoin && brew install bitcoind
+
+# install node.js and coffeescript
 brew install node
 npm install coffee -g # may need sudo access
+
+# install bsddb3 to be used with the berkeley db just installed by bitcoind
+sudo BERKELEYDB_DIR="`brew --prefix`/Cellar/berkeley-db4/4.8.30/" pip install bsddb3
 ```
 
 # Initial Processing
@@ -21,7 +29,7 @@ npm install coffee -g # may need sudo access
 
 ```
 wget https://bitcoin.org/bin/blockchain/bootstrap.dat.torrent
-open bootstrap.dat.torrent
+## open bootstrap.dat.torrent
 ## download bootstrap.dat into ./ folder
 ```
 
@@ -39,7 +47,7 @@ To follow the progress of ```bitcoind``` use
 tail -f bitcoin_data/debug.log
 ```
 
-Once ```bitcoind``` has finished processing the file and caught up to the current block, the regular execution of the ``bitcoind`` should not include the ```-loadblock``` arguement.
+Once ```bitcoind``` has finished processing the ```bootstrap.dat``` file and caught up to the current block, ```bitcoind``` may be shut down and restarted without the ```-loadblock``` arguement.
 
 ```
 bitcoind -detachdb -datadir="./bitcoin_data" -txindex=1
@@ -63,28 +71,20 @@ If a connection error occurs during extraction, delete the last 5 files created,
 
 # Prep for Networking
 
-All of the transaction files are currently separated by blocks.  Combine these block files into one with the command below.
+All of the transaction files are currently separated by blocks.  Next we will combine these block files into one with the command below.
 
 ```
 ./bitcoin_transactions_combine
 ```
 
-## Mac Install of bsddb3
-
-Do the script below if you having trouble loading the pythong library ```bsddb3```
-
-```
-sudo BERKELEYDB_DIR=/usr/local/Cellar/berkeley-db4/4.8.30/ pip install bsddb3
-```
-
 
 # Bitcoin Transaction Network Extraction
 
-This fork is an extension of [Ivan Brugere's work](https://github.com/ivan-brugere/Bitcoin-Transaction-Network-Extraction).
+The code inside the ```network``` forlder is an extension of [Ivan Brugere's work](https://github.com/ivan-brugere/Bitcoin-Transaction-Network-Extraction).
 
-Given the amount of changes made to the code, this fork is to be used solely with node.js transaction exporter above.
+Given the amount of changes made to the code, this network code is to be used solely with the node.js transaction exporter above.
 
-Once the transaction block files are combined, alter the file locations within ```network/process_bitcoin_network_runner.sh``` to point to their proper directories.  Then execute the runner
+Once the transaction block files are combined, execute the runner:
 
 ```{bash}
 ./network/process_bitcoin_network_runner.sh
