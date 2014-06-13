@@ -16,11 +16,13 @@ do
     cat "$TRANSACTION_FOLDER/$DIR/$FILE" >> "$OUTPUT_FILE"
     echo -n "" >> "$OUTPUT_FILE"
 
-    echo "Added file: '$FILE'"
-
   done
 
+  echo "Added directory: '$TRANSACTION_FOLDER/$DIR'"
+
 done
+
+echo "Done!"
 
 
 
