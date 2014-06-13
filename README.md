@@ -28,17 +28,19 @@ sudo BERKELEYDB_DIR="`brew --prefix`/Cellar/berkeley-db4/4.8.30/" pip install bs
 [Download the almost current blockchain](https://github.com/bitcoin/bitcoin/blob/master/doc/bootstrap.md) by torrenting the current ```bootstrap.dat``` file.  By importing the bootstrap.dat file, you will save days of downloading from the bitcoin network.
 
 ```
+mkdir bitcoin_data
+cd bitcoin_data
 wget https://bitcoin.org/bin/blockchain/bootstrap.dat.torrent
 ## open bootstrap.dat.torrent
-## download bootstrap.dat into ./ folder
+## download bootstrap.dat into bitcoin_data folder
+cd ../
 ```
 
 When the 15+ GB ```.dat``` file has finished downloading, import it into ```bitcoind```
 
 ```
-mkdir bitcoin_data
 echo -e "server=1\nrpcthreads=32\nrpctimeout=120\ntxindex=1\nrpcuser=bitcoinrpc\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > bitcoin_data/bitcoin.conf
-bitcoind -datadir="./bitcoin_data" -loadblock="./bootstrap.dat"
+bitcoind -datadir="./bitcoin_data"
 ```
 
 To follow the progress of ```bitcoind``` use
@@ -47,11 +49,7 @@ To follow the progress of ```bitcoind``` use
 tail -f bitcoin_data/debug.log
 ```
 
-Once ```bitcoind``` has finished processing the ```bootstrap.dat``` file and caught up to the current block, ```bitcoind``` may be shut down (might take up to 30 seconds) and restarted without the ```-loadblock``` arguement.
-
-```
-bitcoind -datadir="./bitcoin_data"
-```
+Once ```bitcoind``` has finished processing the ```bootstrap.dat``` file and caught up to the current block, ```bitcoind``` may be shut down (might take up to 30 seconds).  Once shutdown, move the bootstrap file out of the bitcoin_data folder.  This will prevent ```bitcoind``` from trying to reimport the data again and again
 
 # Extraction
 
