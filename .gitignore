@@ -1,2 +1,11 @@
 *.tmproj
 .DS_Store
+bitcoin_data
+bitcoin_transactions
+bitcoin_transactions.txt
+bootstrap.dat*
+network_output
+nodejs/node_modules
+nodejs/extract_all_transactions.js
+nodejs/test*
+*.pyc

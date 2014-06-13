@@ -1,5 +1,5 @@
 from   operator import itemgetter
-import bsddb
+import bsddb3 as bsddb
 import sys
 
 from write_user_public_keys import *

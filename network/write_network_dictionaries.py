@@ -9,9 +9,10 @@
 #
 ##
 
-import bsddb
+import bsddb3 as bsddb
 import array as ar
 import os
+
 def write_network_dictionaries(db_path, transactions_in, transaction_keys, pub_keys):
 
     #get file length for progress output
@@ -39,9 +40,17 @@ def write_network_dictionaries(db_path, transactions_in, transaction_keys, pub_k
     i = 1
 
     for row in f: # each file line
+        # print len(row)
+        # print "'" + row + "'"
+        if row == "\n":
+            continue
+
         add = 1
         fields = row.split()
         #field specification: ["in", transaction_key, referent_transaction_key, index, public_key, date]
+
+        # print fields
+
         if fields[0] == "in" and fields[2] != "coinbase":
             io           = 0  #save some space here, should be sorted before 'out'
             tk           = fields[2] #actually rfk here for fixing missing pubkeys trick

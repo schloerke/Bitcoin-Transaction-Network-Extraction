@@ -1,0 +1,26 @@
+#!/bin/bash
+
+TRANSACTION_FOLDER="./bitcoin_transactions"
+OUTPUT_FILE="./bitcoin_transactions.txt"
+
+# reset output file
+echo -n "" > "$OUTPUT_FILE"
+echo "Cleared '$OUTPUT_FILE'"
+
+for DIR in `ls "$TRANSACTION_FOLDER"`
+do
+
+  for FILE in `ls "$TRANSACTION_FOLDER/$DIR"`
+  do
+
+    cat "$TRANSACTION_FOLDER/$DIR/$FILE" >> "$OUTPUT_FILE"
+    echo -n "" >> "$OUTPUT_FILE"
+
+    echo "Added file: '$FILE'"
+
+  done
+
+done
+
+
+

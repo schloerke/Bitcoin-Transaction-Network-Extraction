@@ -12,7 +12,8 @@
 
 
 from operator import itemgetter
-import bsddb
+import bsddb3 as bsddb
+
 def write_user_edges(referents_out, public_keys_out, edges_out, rows, user_hash):
     rf_out = open(referents_out, 'w')
     pk_out = open(public_keys_out, 'w')
