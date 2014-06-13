@@ -75,6 +75,8 @@ All of the transaction files are currently separated by blocks.  Next we will co
 ./bitcoin_transactions_combine
 ```
 
+This will create a file called ```./bitcoin_transactions.txt```.
+
 
 # Bitcoin Transaction Network Extraction
 
@@ -86,6 +88,118 @@ Once the transaction block files are combined, execute the runner:
 
 ```{bash}
 ./network/process_bitcoin_network_runner.sh
+```
+
+
+
+# File Structures
+
+Notes on raw text files
+
+## ./bitcoin_transactions.txt
+
+* each row is an input or output of a transaction
+* variable number of columns
+* "\t" delimited
+* row types:
+** input coinbase: ["in","(transaction key)", "coinbase" "(time)", "(block height)"]
+** input non-coinbase: ["in", "(transaction key)", "(previous transaction key)", "(previous transaction index)", "(public key)", "(time)", "(block_height)"]
+** output: ["(out)", "(transaction key)", "(output index)", "(public key)", "(value)", "(time)", "(block_height)"]
+* example:
+
+
+
+## ./network_output/user_edges.txt
+* each row is an edge in a transaction
+* "," delimited
+* 8 columns
+* columns:
+** transaction_id : int
+** sender_id : int
+** receiver_id : int
+** time : int
+** value : numeric
+** output_pubkey: numeric
+** output index: numeric
+** block height: numeric
+* example:
+```
+1,2,2,20130630180102,25.15211271,2,0
+2,3,8,20130515191318,1.0,1821963,0
+2,3,3,20130515191318,121.9565,3,1
+3,3,1131722,20130630180102,20.0,4,0
+3,3,3,20130630180102,101.9564,3,1
+```
+
+
+## ./network_output/user_edge_inputs.txt
+* each row is transaction_ids used as input in "this" transaction
+* "," delimited
+* columns:
+** transaction_id : int
+** transaction_ids : int[], "," delimited
+* -- example:
+```
+2,14050764,14050762,14050763,14050765
+3,2,4
+4,11993563,11965181,11985289
+5,2431288
+6,5
+```
+
+
+## ./network_output/user_edge_input_public_keys.txt
+* each row is public_keys used as input in "this" transaction
+* variable number of columns
+* "," delimited
+* columns:
+** transaction_id : int
+** public_keys : int[], "," delimited
+* -- example:
+```
+2,9246231,9246229,9246230,9246232
+3,4,4
+4,7648160,3164019,2909333
+5,1643221
+6,7
+```
+
+
+## ./network_output/userkey_list.txt
+* each row is public_keys belonging to the same user
+* line number is the user_id
+* variable number of columns
+* columns:
+** public_keys : int[], "," delimited
+* example:
+```
+15,16,17,18,19,20,21,2516763,4641741
+27,4899098,5218449,5709778,5803635
+29,30
+8388604
+8388605
+8388606
+```
+
+## pubkey_list.txt
+* each row is the lengthy "public key hash"
+* line number is the "public key id" (starting at 1)
+* example:
+```
+1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa
+12c6DSiU4Rq3P4ZxziKxzrL5LmMBrzjrJX
+1HLoD9E4SDFFPDiYfNYnkBLQ85Y51J3Zb1
+```
+
+
+## transactionkey_list.txt
+* each row is the lengthy "transaction hash"
+* line number is the transaction_id (starting at 1)
+* example:
+```
+4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b
+0e3e2357e806b6cdb1f70b54c3a3a17b6714ee1f0e68bebb44a74b1efd512098
+9b0fc92260312ce44e74ef369f5c66bbb85848f2eddd5a7a1cde251e54ccfdd5
 ```
 
 
