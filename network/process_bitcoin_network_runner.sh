@@ -25,7 +25,7 @@ referent_public_keys_out="user_edge_input_public_keys.txt" #public keys of claim
 edges_out="user_edges.txt" #main data file
 
 
-mkdir "$file_path"
+mkdir -p "$file_path"
 python ./network/process_bitcoin_network.py ${transactions_in} ${file_path}${transaction_keys} ${file_path}${pub_keys} ${file_path}${users_out} ${file_path}${referents_out} ${file_path}${referent_public_keys_out} ${file_path}${edges_out} ${file_path}
 end=$(date +%s)
 diff=$(( $end - $start ))
