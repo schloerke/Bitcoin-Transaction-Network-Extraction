@@ -25,7 +25,7 @@ sudo BERKELEYDB_DIR="`brew --prefix`/Cellar/berkeley-db4/4.8.30/" pip install bs
 
 # Initial Processing
 
-[Download the almost current blockchain](https://github.com/bitcoin/bitcoin/blob/master/doc/bootstrap.md) by torrenting the current ```bootstrap.dat``` file.  By importing the bootstrap.dat file, you will save days of processing time.
+[Download the almost current blockchain](https://github.com/bitcoin/bitcoin/blob/master/doc/bootstrap.md) by torrenting the current ```bootstrap.dat``` file.  By importing the bootstrap.dat file, you will save days of downloading from the bitcoin network.
 
 ```
 wget https://bitcoin.org/bin/blockchain/bootstrap.dat.torrent
@@ -33,7 +33,7 @@ wget https://bitcoin.org/bin/blockchain/bootstrap.dat.torrent
 ## download bootstrap.dat into ./ folder
 ```
 
-When the 15+ GB file has finished downloading we will import it into ```bitcoind```
+When the 15+ GB ```.dat``` file has finished downloading, import it into ```bitcoind```
 
 ```
 mkdir bitcoin_data
@@ -47,7 +47,7 @@ To follow the progress of ```bitcoind``` use
 tail -f bitcoin_data/debug.log
 ```
 
-Once ```bitcoind``` has finished processing the ```bootstrap.dat``` file and caught up to the current block, ```bitcoind``` may be shut down and restarted without the ```-loadblock``` arguement.
+Once ```bitcoind``` has finished processing the ```bootstrap.dat``` file and caught up to the current block, ```bitcoind``` may be shut down (might take up to 30 seconds) and restarted without the ```-loadblock``` arguement.
 
 ```
 bitcoind -detachdb -datadir="./bitcoin_data" -txindex=1
@@ -57,9 +57,9 @@ bitcoind -detachdb -datadir="./bitcoin_data" -txindex=1
 
 # Extraction
 
-Run ```bitcoind``` as explained above in the background or another tab.
+Run ```bitcoind``` as explained above in the background or another tab.  This process is needed to extract all of the transactions.
 
-While that is running, execute the node.js extraction
+To get all of the transactions per block:
 
 ```
 coffee nodejs/extract_all_transactions.coffee
@@ -67,7 +67,7 @@ coffee nodejs/extract_all_transactions.coffee
 
 This will write a file for every block.  Each file will contain all transaction information needed for the user network code.  All files will be combined before being sent to the user network code.  By keeping each file separate, debugging and extending the exported transactions is MUCH faster.
 
-If a connection error occurs during extraction, delete the last 5 files created, and restart the extraction.
+If a connection error occurs during extraction, delete the last 5 files created, and restart the extraction coffee code.
 
 # Prep for Networking
 
