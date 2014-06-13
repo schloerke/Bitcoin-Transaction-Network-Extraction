@@ -1,5 +1,5 @@
 ##
-#   void write_user_edges(string, string, string, int[][], dict{})
+#   void write_user_edges(string, string, string, arr[][], dict{})
 #   @var referents_out the string path of where to output the transaction_id referents
 #   @var public_keys_out the string path of where to output the pubkey_id referents
 #   @var edges_out the string path of where to output the main data file (edges)
@@ -54,8 +54,8 @@ def write_user_edges(referents_out, public_keys_out, edges_out, rows, user_hash)
             # 6 - public_key
             # 7 - index
             # 8 - block_height
-            line = [int(row[1]), int(user_hash[pubkey]), int(user_hash[row[3]]), int(row[4]), str(round(float(row[5])*1.0e-9, 8)), int(row[3]), int(row[2]), int(row[6])]
-            # I try to preserve 8 digits of significance here (see: rounding). I've looked closely at getting this precision correct and cant find an incorrect instance. Most transactions are 2 sig. figs.
+            line = [int(row[1]), int(user_hash[pubkey]), int(user_hash[row[3]]), int(row[4]), row[5], int(row[3]), int(row[2]), int(row[6])]
+
             e_out.write(",".join(map(str, line)) + '\n') #write to string
             rf_list = []
             pk_list = []

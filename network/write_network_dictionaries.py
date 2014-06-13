@@ -1,11 +1,11 @@
 ##
-# long[][] write_network_dictionaries(string, string, string, string)
+# arr[][] write_network_dictionaries(string, string, string, string)
 # @var db_path the string path to write the database files
 # @var transactions_in the string path to find the raw transaction file
 # @var transaction_keys the string path to write the transaction strings
 # @var pub_keys the string path to write the pubkey strings
 #
-# This method preprocesses the raw bitcoin text data, numerically indexing the lengthy string data and outputting a long int matrix.
+# This method preprocesses the raw bitcoin text data, numerically indexing the lengthy string data and outputting a matrix.
 #
 ##
 
@@ -67,7 +67,7 @@ def write_network_dictionaries(db_path, transactions_in, transaction_keys, pub_k
             pk           = fields[3]
             date         = fields[5]
             tk_backup    = fields[1]
-            io_val       = float(fields[4])*1e9
+            io_val       = fields[4]
             block_height = fields[6]
         else:
             add = 0
@@ -91,7 +91,8 @@ def write_network_dictionaries(db_path, transactions_in, transaction_keys, pub_k
 
             if io == 0:
                  io_val = int(t_keys[io_val])
-            rows.append(ar.array('L', map(int, [io, t_keys[tk], idx, p_keys[pk], date, io_val, t_keys[tk_backup], block_height]))) #go to 'L' here to preserve BTC value precision, is corrupted on 4-byte float.
+            rows.append([int(io), int(t_keys[tk]), int(idx), int(p_keys[pk]), date, io_val, int(t_keys[tk_backup]), int(block_height)]) # use regular types.  screw memory, accuracy is better
+
         i += 1
         if i % 1000000 == 0: #print progress
             print "Progress: dictionary, percent complete: " + str(float(i)/file_lines)

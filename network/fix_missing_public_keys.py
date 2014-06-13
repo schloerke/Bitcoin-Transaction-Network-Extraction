@@ -1,7 +1,7 @@
 ##
 #
-#   int[][] fix_missing_public_keys(int[][])
-#   @var rows the matrix of int data values to process
+#   arr[][] fix_missing_public_keys(arr[][])
+#   @var rows the matrix of data values to process
 #   @return the preprocessed main data matrix
 
 #   preprocessing: input pubkeys from 'coinbase' are sometimes given in raw data as (None), these can be fixed by using the output pubkey
@@ -18,15 +18,19 @@ def fix_missing_public_keys(rows):
 
     for i in range(1, len(rows)):
         row = rows[i]
-        if prev_row[3] == 0 and row[0] == 1 and row[1] == prev_row[1] and row[2] == prev_row[2]: # if missing, type==output and matching input key
-            rows[i-1] = ar.array('L', map(int, [prev_row[0], prev_row[6], prev_row[2], row[3], prev_row[4], prev_row[5], prev_row[7]]))
+        thirdItem = 0
+        if (prev_row[3] == 0) and (row[0] == 1) and (row[1] == prev_row[1]) and (row[2] == prev_row[2]): # if missing, type==output and matching input key
+            thirdItem = row[3]
         else:
-            rows[i-1] = ar.array('L', map(int, [prev_row[0], prev_row[6], prev_row[2], prev_row[3], prev_row[4], prev_row[5], prev_row[7]]))
+            thirdItem = prev_row[3]
+
+        rows[i-1] = [prev_row[0], prev_row[6], prev_row[2], thirdItem, prev_row[4], prev_row[5], prev_row[7]]
+
         prev_row = row
         if i % 1000000 == 0:
             print "Progress: fix public keys, percent complete: " + str(float(i)/len(rows))
 
     ##### row specification:
     # row: [<"i"/"o">, transaction_key, index, pubkey, date_time, <i:referent transaction, o:outputvalue >]
-    rows[i] = ar.array('L', map(int, [prev_row[0], prev_row[6], prev_row[2], prev_row[3], prev_row[4], prev_row[5], prev_row[7]]))
+    rows[i] = [prev_row[0], prev_row[6], prev_row[2], prev_row[3], prev_row[4], prev_row[5], prev_row[7]]
     return rows;
