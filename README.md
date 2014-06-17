@@ -12,6 +12,7 @@ The goal of this repository is to extract bitcoint transaction information from 
 For mac, you may use [```brew```](http://brew.sh)
 
 ```
+which brew || ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
 which git || brew install git
 which wget || brew install wget
 
