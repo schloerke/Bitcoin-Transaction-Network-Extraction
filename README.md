@@ -9,9 +9,12 @@ The goal of this repository is to extract bitcoint transaction information from 
 * python v2.7.*
 * python library bsddb3
 
-For mac, you may use ```brew```
+For mac, you may use [```brew```](http://brew.sh)
 
 ```
+which git || brew install git
+which wget || brew install wget
+
 # install bitcoind
 brew tap wysenynja/bitcoin && brew install bitcoind
 
