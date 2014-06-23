@@ -403,7 +403,6 @@ process_block = (n, callback) ->
 client.cmd 'getblockcount', (err, maxBlockHeight, valueHeader) ->
   if err
     console.error("ERROR: getblockcount. Error: ", err)
-    callback(err, null)
     return
 
   console.log("Max block Height: ", maxBlockHeight, "\n")
