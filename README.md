@@ -53,7 +53,7 @@ To follow the progress of ```bitcoind``` use
 tail -f bitcoin_data/debug.log
 ```
 
-Once ```bitcoind``` has finished processing the ```bootstrap.dat``` file and caught up to the current block, ```bitcoind``` may be shut down (might take up to 30 seconds).  Once shutdown, move the bootstrap file out of the bitcoin_data folder.  This will prevent ```bitcoind``` from trying to reimport the data again and again
+Once ```bitcoind``` has finished processing the ```bootstrap.dat``` file, ```bitcoind``` will change the bootstrap.dat to ```bootstrap.dat.old```. You may delete this file once ".old" has been appended.
 
 # Extraction
 
